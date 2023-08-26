@@ -5,3 +5,28 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+john = User.create!(
+  nickname: "john.doe"
+)
+
+other_users = User.create!(
+  [
+    { nickname: "marco.polo" },
+    { nickname: "andre.vasc" },
+    { nickname: "gabi.heim" },
+    { nickname: "tiago.carv" },
+  ]
+)
+
+other_tweets = other_users.map do |user|
+  Tweet.create!(
+    content: "tweet de #{user.nickname}",
+    author: user
+  )
+
+  UserConnection.create!(
+    user: user,
+    follower: john
+  )
+end

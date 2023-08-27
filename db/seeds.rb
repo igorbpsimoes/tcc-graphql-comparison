@@ -12,15 +12,17 @@ john = User.create!(
 
 other_users = User.create!(
   [
-    { nickname: "marco.polo" },
-    { nickname: "andre.vasc" },
-    { nickname: "gabi.heim" },
-    { nickname: "tiago.carv" },
+    { nickname: "gabriela.h" },
+    { nickname: "andre.v" },
+    { nickname: "tiago.c" },
+    { nickname: "pedro.b" },
+    { nickname: "duda.m" },
+    { nickname: "camila.c" },
   ]
 )
 
 other_tweets = other_users.map do |user|
-  Tweet.create!(
+  tweet = Tweet.create!(
     content: "tweet de #{user.nickname}",
     author: user
   )
@@ -28,5 +30,24 @@ other_tweets = other_users.map do |user|
   UserConnection.create!(
     user: user,
     follower: john
+  )
+
+  comment = Comment.create!(
+    content: "random comment #{rand(1..100)}",
+    user: john,
+    tweet:
+  )
+
+  Vote.create!(
+    [
+      {
+        user: john,
+        voteable: tweet
+      },
+      {
+        user: user,
+        voteable: comment
+      }
+    ]
   )
 end

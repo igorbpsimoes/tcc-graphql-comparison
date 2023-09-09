@@ -16,8 +16,8 @@ end
 
 10.times do
   followed_users.each do |followed_user|
-    tweet = FactoryBot.create(:tweet, author: followed_user)
+    tweet = FactoryBot.create(:tweet, user: followed_user)
 
-    FactoryBot.create(:comment, tweet: tweet, user: current_user)
+    FactoryBot.create(:comment, tweet: tweet, user: FactoryBot.create(:user))
   end
 end

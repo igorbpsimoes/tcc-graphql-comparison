@@ -15,7 +15,7 @@ module Resolvers
 
   class FeedResolverPreload < BaseFeedResolver
     def resolve
-      FeedBuilder.for(current_user).includes(:author)
+      FeedBuilder.for(current_user).includes(:user)
     end
   end
 end

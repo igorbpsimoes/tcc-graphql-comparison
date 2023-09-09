@@ -5,22 +5,29 @@ FactoryBot.define do
 
   factory :tweet do
     content { Faker::Lorem.sentence }
-    association :author, factory: :user
+    user { build(:user) }
   end
 
   factory :comment do
     content { Faker::Lorem.sentence }
-    association :user
-    association :tweet
+    tweet { build(:tweet) }
+    user { build(:user) }
   end
 
   factory :vote do
-    association :user
-    association :voteable, factory: :tweet
+    user { build(:user) }
+
+    trait :for_comment do
+      association :voteable, factory: :comment
+    end
+
+    trait :for_tweet do
+      association :voteable, factory: :tweet
+    end
   end
 
   factory :user_connection do
-    association :user
-    association :follower, factory: :user
+    user { build(:user) }
+    follower { build(:user) }
   end
 end

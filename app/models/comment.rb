@@ -1,5 +1,5 @@
-class Tweet < ApplicationRecord
+class Comment < ApplicationRecord
+  belongs_to :tweet
   belongs_to :user
-  has_many :comments
   has_many :votes, as: :voteable
 end

@@ -1,9 +1,9 @@
 module Types
   class TweetType < Types::Base::Object
     field :content, String
-    field :author, Types::UserType, null: false, method: :user
-    field :author_graphql_batch, Types::UserType, null: false
-    field :author_batch_loader, Types::UserType, null: false
+    field :author, UserType, null: false, method: :user
+    field :author_graphql_batch, UserType, null: false
+    field :author_batch_loader, UserType, null: false
 
     def author_graphql_batch
       Loaders::RecordLoader.for(User).load(object.author_id)

@@ -6,48 +6,18 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-john = User.create!(
-  nickname: "john.doe"
-)
+current_user = FactoryBot.create(:user, nickname: 'igorbpsimoes')
 
-other_users = User.create!(
-  [
-    { nickname: "gabriela.h" },
-    { nickname: "andre.v" },
-    { nickname: "tiago.c" },
-    { nickname: "pedro.b" },
-    { nickname: "duda.m" },
-    { nickname: "camila.c" },
-  ]
-)
+followed_users = FactoryBot.create_list(:user, 100)
 
-other_tweets = other_users.map do |user|
-  tweet = Tweet.create!(
-    content: "tweet de #{user.nickname}",
-    author: user
-  )
+followed_users.each do |followed_user|
+  FactoryBot.create(:user_connection, user: followed_user, follower: current_user)
+end
 
-  UserConnection.create!(
-    user: user,
-    follower: john
-  )
+10.times do
+  followed_users.each do |followed_user|
+    tweet = FactoryBot.create(:tweet, author: followed_user)
 
-  comment = Comment.create!(
-    content: "random comment #{rand(1..100)}",
-    user: john,
-    tweet:
-  )
-
-  Vote.create!(
-    [
-      {
-        user: john,
-        voteable: tweet
-      },
-      {
-        user: user,
-        voteable: comment
-      }
-    ]
-  )
+    FactoryBot.create(:comment, tweet: tweet, user: current_user)
+  end
 end

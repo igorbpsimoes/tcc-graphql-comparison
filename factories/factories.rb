@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
     nickname { Faker::Name.name }
+    avatar { build(:avatar, user: instance) }
   end
 
   factory :tweet do
@@ -29,5 +30,10 @@ FactoryBot.define do
   factory :user_connection do
     user { build(:user) }
     follower { build(:user) }
+  end
+
+  factory :avatar do
+    image_url { Faker::LoremFlickr.image }
+    user { build(:user) }
   end
 end

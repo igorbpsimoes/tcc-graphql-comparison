@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_one :avatar
+
   has_many :followers_connections, class_name: 'UserConnection', foreign_key: :user_id
   has_many :followers, through: :followers_connections, source: :follower, class_name: 'User'
 
